@@ -4,7 +4,8 @@ const cookieSession=require('cookie-session');
 const passport= require('passport');
 const bodyParser= require('body-parser');
 const keys=require('./config/keys');
-require('./models/User')
+require('./models/User');
+require('./models/Survey');
 require('./services/passport')
 
 
@@ -25,11 +26,12 @@ app.use(passport.session());
 
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 if(process.env.NODE_ENV==='production'){
     //Express will serve up production assets
     //Like our main.js file, main.css file!
-    app.use(express.statis('client/build'))
+    app.use(express.static('client/build'))
     //Express will serve up the index.html file
     //if it does not recognize the route
     const path=require('path');
